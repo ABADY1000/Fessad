@@ -6,7 +6,7 @@ using PropertyChanged;
 namespace Fessad_TL
 {
     [ImplementPropertyChanged]
-    internal class BasViewModel : INotifyPropertyChanged
+    internal class BaseViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged = (sender, x) => { };
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 
-namespace Fessad_TL.ViewModel
+namespace Fessad_TL
 {
     class RelayCommand : ICommand
     {

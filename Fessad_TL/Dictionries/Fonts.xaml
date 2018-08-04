@@ -2,13 +2,23 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Fessad_TL">
     <FontFamily x:Key="Massir">pack://application;,,,/Fonts/#A Massir Ballpoint</FontFamily>
-    <FontFamily x:Key="Arab">pack://application;,,,/Fonts/#Arab</FontFamily>
-    <FontFamily x:Key="Aram">pack://application;,,,/Fonts/#Aram</FontFamily>
-    <FontFamily x:Key="aSoraya">pack://application;,,,/Fonts/#A Soraya</FontFamily>
     <FontFamily x:Key="Djadli">pack://application;,,,/Fonts/#djadli_linearHour</FontFamily>
     <FontFamily x:Key="Hor">pack://application;,,,/Fonts/#Hor</FontFamily>
     <FontFamily x:Key="DohaBold">pack://application;,,,/Fonts/#Spirit Of Doha Bold</FontFamily>
+    
+    <Style TargetType="{x:Type Control}" x:Key="Basic">
+        <Setter Property="FontFamily" Value="{StaticResource DohaBold}"/>
+    </Style>
 
+    <Style TargetType="{x:Type TextBlock}" x:Key="TextBlockBasic">
+        <Setter Property="FontFamily" Value="{StaticResource DohaBold}"/>
+    </Style>
+
+    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource Basic}"/>
+    <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource Basic}"/>
+    <Style TargetType="{x:Type Label}" BasedOn="{StaticResource Basic}"/>
+    <Style TargetType="{x:Type ListView}" BasedOn="{StaticResource Basic}"/>
+    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource TextBlockBasic}"/>
 
 
 </ResourceDictionary>
