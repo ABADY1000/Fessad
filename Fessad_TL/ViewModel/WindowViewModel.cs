@@ -21,40 +21,51 @@ namespace Fessad_TL
         /// <summary>
         /// The margin around the window to allow drop shadow
         /// </summary>
-        private int mOuterMargin = 10;
+        private int mOuterMargin = 0;
 
         /// <summary>
         /// The radius of edges of the window
         /// </summary>
         private int mWindowRdius = 10;
 
+        /// <summary>
+        /// The last known dock position
+        /// </summary>
+        private WindowDockPosition mDockPosition = WindowDockPosition.Undocked;
+
         #endregion
 
+        // TODO: Fix the issue of uncapability of graping window when in maximum.
         #region Public Properties
 
         /// <summary>
         /// The minimum allowed window width
         /// </summary>
-        public double WindowMinimumWidth { get; set; } = 400;
+        public double WindowMinimumWidth { get; set; } = 800;
 
         /// <summary>
         /// The minimum allowed window height
         /// </summary>
-        public double WindowMinimumHeight { get; set; } = 400;
+        public double WindowMinimumHeight { get; set; } = 500;
 
         /// <summary>
         /// The size of the seen border
         /// </summary>
-        public int ResizeBorder { get; set; } = 5;
+        public int ResizeBorder { get { return BorderLess ? 0 : 6; } }
 
         public Thickness ResizeBorderThickness
         {
             get { return new Thickness(ResizeBorder + OuterMarginSize);}
         }
 
+        //public Thickness InnerContentBorderThickness
+        //{                                           
+        //    get { return new Thickness(ResizeBorder); }
+        //}
+
         public Thickness InnerContentBorderThickness
-        {                                           
-            get { return new Thickness(ResizeBorder); }
+        {
+            get { return new Thickness(0); }
         }
 
 
@@ -87,12 +98,22 @@ namespace Fessad_TL
         }
 
 
-        public int TitleHeight { get; set; } = 20;
+        public int TitleHeight { get; set; } = 25;
 
         public GridLength TitleHeightGridLength
         {
             get{ return new GridLength(TitleHeight + ResizeBorder); }
         }
+
+        /// <summary>
+        /// The current page of the application
+        /// </summary>
+        public ApplicationPage CurrentPage { get; set; } = ApplicationPage.ChatPage;
+
+        /// <summary>
+        /// True if the window should be borderless becuase it is doucked or maximized
+        /// </summary>
+        public bool BorderLess { get { return ( mWindow.WindowState == WindowState.Maximized || mDockPosition != WindowDockPosition.Undocked ); } }
 
         #endregion
 
@@ -133,11 +154,7 @@ namespace Fessad_TL
             //Listen to the change in window state
             mWindow.StateChanged += (sender, e) =>
             {
-                OnPropertyChanged(nameof(ResizeBorder));
-                OnPropertyChanged(nameof(OuterMarginSize));
-                OnPropertyChanged(nameof(WindowRadius));
-                OnPropertyChanged(nameof(OuterMarginSizeThickness));
-                OnPropertyChanged(nameof(WindowRadius));
+                WindowResized();  
             };
 
             // Making the commands
@@ -147,6 +164,15 @@ namespace Fessad_TL
             MenuCommand = new RelayCommand(() => SystemCommands.ShowSystemMenu(mWindow, GetMousePosition()));
 
             var resizer = new WindowResizer(mWindow);
+
+            resizer.WindowDockChanged += (dock) =>
+            {
+                // Store last position
+                mDockPosition = dock;
+
+                // Fire off resize events
+                WindowResized();
+            };
         }
 
         #endregion
@@ -166,6 +192,16 @@ namespace Fessad_TL
             return new Point(position.X + mWindow.Left, position.Y + mWindow.Top);
         }
 
+        private void WindowResized()
+        {
+            OnPropertyChanged(nameof(ResizeBorder));
+            OnPropertyChanged(nameof(OuterMarginSize));
+            OnPropertyChanged(nameof(WindowRadius));
+            OnPropertyChanged(nameof(OuterMarginSizeThickness));
+            OnPropertyChanged(nameof(WindowRadius));
+        }
+
         #endregion
+
     }
 }

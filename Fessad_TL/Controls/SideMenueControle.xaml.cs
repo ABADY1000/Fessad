@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Fessad_TL
 {
     /// <summary>
-    /// Interaction logic for LoginPage.xaml
+    /// Interaction logic for SideMenueControle.xaml
     /// </summary>
-    public partial class LoginPage : Page
+    public partial class SideMenueControle : UserControl
     {
-        public LoginPage()
+        public SideMenueControle()
         {
             InitializeComponent();
         }

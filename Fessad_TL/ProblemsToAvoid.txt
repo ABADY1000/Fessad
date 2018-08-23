@@ -1,0 +1,8 @@
+﻿
+The instructor has mentioned some mistakes will be ignored with this design but it should be avoid in any MVVM design.
+
+1- Do never pass any UI element to the view model class. (it happened in "MainViewModel" Constructor)
+
+2- Do never store any password in the RAM after dencrypt it, send it directly to the wanted server.
+
+		

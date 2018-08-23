@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="Fessad_TL.SideMenueControle"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Fessad_TL"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="400">
+    
+    <UserControl.Template>
+        <ControlTemplate TargetType="UserControl">
+            <!-- The board tha contain the left side of the page (Lists...) -->
+            <Border Background="{StaticResource ForegroundLightBrush}" 
+                    BorderThickness="0 0 0 0">
+
+                <!-- Divide the board into 1- settings, 2- lists -->
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- This grid is responsable for the upper bar -->
+                    <Grid Background="{StaticResource TheBlueBrush}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Orientation="Horizontal">
+                            <Button Content="&#xf086;" Style="{StaticResource IconButton}"/>
+                            <Button Content="&#xf007;" Style="{StaticResource IconButton}"/>
+                            <Button Content="&#xf1c5;" Style="{StaticResource IconButton}"/>
+                        </StackPanel>
+
+                        <Button Content="&#xf013;" Style="{StaticResource IconButton}"
+                                Grid.Column="2" Foreground="{StaticResource TheDarkBlueBrush}"/>
+                    </Grid>
+
+                    <ContentPresenter Grid.Row="1"/>
+
+                </Grid>
+            </Border>
+        </ControlTemplate>
+    </UserControl.Template>
+    
+</UserControl>

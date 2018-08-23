@@ -1,11 +1,13 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:Fessad_TL">
+                    xmlns:local="clr-namespace:Fessad_TL"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
     <FontFamily x:Key="Massir">pack://application;,,,/Fonts/#A Massir Ballpoint</FontFamily>
     <FontFamily x:Key="Djadli">pack://application;,,,/Fonts/#djadli_linearHour</FontFamily>
     <FontFamily x:Key="Hor">pack://application;,,,/Fonts/#Hor</FontFamily>
     <FontFamily x:Key="DohaBold">pack://application;,,,/Fonts/#Spirit Of Doha Bold</FontFamily>
-    
+    <FontFamily x:Key="FontAwesome">pack://appliction;,,,/Fonts/#FontAwesome</FontFamily>
+
     <Style TargetType="{x:Type Control}" x:Key="Basic">
         <Setter Property="FontFamily" Value="{StaticResource DohaBold}"/>
     </Style>
@@ -20,5 +22,9 @@
     <Style TargetType="{x:Type ListView}" BasedOn="{StaticResource Basic}"/>
     <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource TextBlockBasic}"/>
 
+    <system:Double x:Key="FontSizeSmall">13</system:Double>
+    <system:Double x:Key="FontSizeIconic">16</system:Double>
+    <system:Double x:Key="FontSizeMedium">20</system:Double>
+    <system:Double x:Key="FontSizeLarge">30</system:Double>
 
 </ResourceDictionary>

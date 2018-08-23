@@ -1,0 +1,105 @@
+﻿<UserControl x:Class="Fessad_TL.ChatListItemControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Fessad_TL"
+             mc:Ignorable="d" 
+             d:DesignHeight="60" d:DesignWidth="300">
+    <UserControl.Resources>
+        <Style x:Key="ContentStyle" TargetType="{x:Type ContentControl}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ContentControl}">
+
+                        <Border BorderThickness="0 0 0 1"
+                                BorderBrush="{StaticResource BackGroundLightBrush}">
+                            <Grid Background="{StaticResource BackGroundVeryLightBrush}"
+                                d:DataContext="{x:Static local:ChatListItemDesignModel.Instance}"
+                                  Name="container">
+                                <Grid.ColumnDefinitions>
+                                    <!-- Unread messege -->
+                                    <ColumnDefinition Width="Auto"/>
+                                    <!-- Person icon -->
+                                    <ColumnDefinition Width="Auto"/>
+                                    <!-- Name and last massege -->
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Border Width="5" Background="Red" Visibility="{Binding IsThereNewMessage, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=Hello}"/>
+
+                                <Border Width="{Binding ActualHeight,RelativeSource={RelativeSource Self}}"
+                                        Grid.Column="1"
+                                        Padding="5"
+                                        Margin="0 1">
+                                    <Border Width="{Binding ActualHeight,RelativeSource={RelativeSource Self}}"
+                                            Background="{Binding ChatIconColorRGB, Converter={local:StringToRgbBrush}}"
+                                            CornerRadius="{Binding ActualHeight,RelativeSource={RelativeSource Self}}"
+                                            Padding="8">
+                                        <Viewbox VerticalAlignment="Bottom" HorizontalAlignment="Center">
+                                            <TextBlock VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Text="{Binding Initial}"
+                                                       FontSize="{StaticResource FontSizeIconic}"
+                                                       Foreground="{StaticResource BackGroundVeryLightBrush}"
+                                                       FontFamily="{StaticResource Hor}"/>
+                                        </Viewbox>
+                                    </Border>
+
+                                </Border>
+
+                                <StackPanel Grid.Column="2" VerticalAlignment="Center" Margin="10 5 10 0">
+
+                                    <TextBlock VerticalAlignment="Center" 
+                                               Text="{Binding Name}"
+                                               FontSize="{StaticResource FontSizeIconic}"
+                                               TextTrimming="CharacterEllipsis"
+                                               Margin="0,5,0,5"
+                                               FontFamily="{StaticResource Hor}"
+                                               Foreground="{StaticResource TheBlueBrush}"/>
+                                    <TextBlock VerticalAlignment="Center"
+                                               Text="{Binding Message}"
+                                               TextTrimming="CharacterEllipsis"
+                                               FontSize="{StaticResource FontSizeSmall}"
+                                               Foreground="{StaticResource ForegroundDarkBrush}"
+                                               FontFamily="{StaticResource Hor}"
+                                               Margin="0 0 0 5"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                       
+                        <!-- Hover effect -->
+                        <ControlTemplate.Triggers>
+                            <EventTrigger RoutedEvent="MouseEnter">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetName="container" 
+                                                    Storyboard.TargetProperty="Background.Color" 
+                                                    To="{StaticResource BackGroundLight}" 
+                                                    Duration="0:0:0.15"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="MouseLeave">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetName="container" 
+                                                    Storyboard.TargetProperty="Background.Color" 
+                                                    To="{StaticResource BackGroundVeryLight}" 
+                                                    Duration="0:0:0.3"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" TargetName="container" Value="{StaticResource ForegroundDarkBrush}"/>
+                            </Trigger>
+                           
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <ContentControl Style="{StaticResource ContentStyle}"/>
+</UserControl>
